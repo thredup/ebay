@@ -39,10 +39,10 @@ module Ebay #:nodoc:
     XmlNs = 'urn:ebay:apis:eBLBaseComponents'
     
     cattr_accessor :use_sandbox, :sandbox_url, :production_url, :site_id
-    cattr_accessor :dev_id, :app_id, :cert, :auth_token
+    cattr_accessor :dev_id, :app_id, :cert, :auth_token, :ru_name
     cattr_accessor :username, :password
-    attr_reader :auth_token, :site_id
-    
+    attr_reader :auth_token, :site_id, :session_id
+
     self.sandbox_url = 'https://api.sandbox.ebay.com/ws/api.dll'
     self.production_url = 'https://api.ebay.com/ws/api.dll'
     self.use_sandbox = false
@@ -73,6 +73,7 @@ module Ebay #:nodoc:
     #    ebay.dev_id = 'YOUR DEVELOPER ID HERE'
     #    ebay.app_id = 'YOUR APPLICATION ID HERE'
     #    ebay.cert = 'YOUR CERTIFICATE HERE'
+    #    ebay.ru_name = 'YOUR RU NAME HERE'
     #
     #  # The default environment is the production environment
     #  # Override by setting use_sandbox to true
@@ -90,13 +91,17 @@ module Ebay #:nodoc:
     def service_uri
       self.class.service_uri
     end
-    
+
     def app_id
       self.class.app_id
     end
 
     def cert
       self.class.cert
+    end
+
+    def sign_in_url(session_id)
+      "https://signin.#{"sandbox." if self.class.using_sandbox?}ebay.com/ws/eBayISAPI.dll?SignIn&RuName=#{self.class.ru_name}&SessID=#{session_id}"
     end
 
     # With no options, the default is to use the default site_id and the default
