@@ -13,18 +13,25 @@ module Ebay #:nodoc:
     def initialize(errors)
       @errors = errors
     end
+
+    def to_s
+      message = "Ebay Error:"
+      errors.each do |error|
+        message << " #{error.long_message};"
+      end
+    end
   end
 
   # == Overview
   # Api is the main proxy class responsible for instantiating and invoking
-  # the correct Ebay::Requests object for the method called. 
+  # the correct Ebay::Requests object for the method called.
   # All of the available method calls are included from the module Ebay::ApiMethods
   #   ebay = Ebay::Api.new
   #   response = ebay.get_ebay_official_time
   #   puts response.timestamp # => 2006-08-13T21:28:39.515Z
   #
   # All Ebay API calls have a corresponding request and response object.
-  # In the example above the request objects is 
+  # In the example above the request objects is
   # Ebay::Requests::GeteBayOfficialTime and the response object is
   # Ebay::Responses::GeteBayOfficialTime
   #
@@ -37,7 +44,7 @@ module Ebay #:nodoc:
     include Inflections
     include ApiMethods
     XmlNs = 'urn:ebay:apis:eBLBaseComponents'
-    
+
     cattr_accessor :use_sandbox, :sandbox_url, :production_url, :site_id
     cattr_accessor :dev_id, :app_id, :cert, :auth_token, :ru_name
     cattr_accessor :username, :password
@@ -49,7 +56,7 @@ module Ebay #:nodoc:
 
     # Make the default site US
     self.site_id = 0
-  
+
     # The URI that all requests are sent to. This depends on the current environment the Api
     # is configured to use and will either be the Api#sandbox_url or the Api#production_url
     def self.service_uri
@@ -116,26 +123,26 @@ module Ebay #:nodoc:
       @auth_token = options[:auth_token] || self.class.auth_token
       @site_id = options[:site_id] || self.class.site_id
     end
-  
+
     private
     def commit(request_class, params)
       format = params.delete(:format) || @format
-      
+
       params[:username] = username
       params[:password] = password
       params[:auth_token] = auth_token
-      
+
       request = request_class.new(params)
       yield request if block_given?
       invoke(request, format)
     end
-    
+
     def invoke(request, format)
-      response = connection.post( service_uri.path, 
-                                  build_body(request), 
+      response = connection.post( service_uri.path,
+                                  build_body(request),
                                   build_headers(request.call_name)
                                 )
-      
+
       parse decompress(response), format
     end
 
@@ -200,7 +207,7 @@ module Ebay #:nodoc:
     def fix_root_element_name(xml)
       # Fix upper cased API in response
       xml.root.name = xml.root.name.gsub(/API/, 'Api')
-      
+
       # Fix lowercased Xsl in response document
       xml.root.name = xml.root.name.gsub(/XslResponse$/, 'XSLResponse')
     end
