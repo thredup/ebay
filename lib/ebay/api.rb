@@ -10,6 +10,7 @@ module Ebay #:nodoc:
 
   class RequestError < EbayError #:nodoc:
     attr_reader :errors
+
     def initialize(errors)
       @errors = errors
     end
@@ -19,6 +20,7 @@ module Ebay #:nodoc:
       errors.each do |error|
         message << " #{error.long_message};"
       end
+      message
     end
   end
 
