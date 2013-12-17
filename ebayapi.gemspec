@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.4"
 
   s.add_dependency("money", ["~> 3"])
-  s.add_dependency("xml-mapping", ["~> 0.8.1"])
+  s.add_dependency("xml-mapping", ["~> 0.9.1"])
 
   s.add_development_dependency("activesupport", [">= 2.3.4"])
   s.add_development_dependency("xml-simple", ["~> 1.0.11"])
