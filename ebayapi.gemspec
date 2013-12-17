@@ -1,20 +1,21 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+# encoding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "ebay/version"
 
 Gem::Specification.new do |s|
   s.name        = "ebayapi"
   s.version     = Ebay::VERSION
-  s.author      = "Cody Fausner"
-  s.email       = "codyfauser@gmail.com"
-  s.homepage    = "https://github.com/codyfauser/ebay"
+  s.authors     = ["Cody Fausner", "Peter McCracken"]
+  s.email       = "peter.mccracken@shopify.com"
+  s.homepage    = "https://github.com/peterjm/ebay"
   s.summary     = "Ruby interface to the eBay XML Trading API"
   s.description = "A ruby library for interacting with the eBay XML Trading API, based on self-generated request and response classes."
 
-  s.files        = Dir["{lib,test}/**/*", "[A-Z]*", "init.rb"]
-  s.require_path = "lib"
-
-  s.rubyforge_project = s.name
+  s.files         = `git ls-files`.split($/)
+  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.require_paths = ["lib"]
 
   s.required_rubygems_version = ">= 1.3.4"
 
