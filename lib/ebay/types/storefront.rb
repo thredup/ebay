@@ -10,8 +10,10 @@ module Ebay # :nodoc:
       include XML::Mapping
       include Initializer
       root_element_name 'Storefront'
-      numeric_node :store_category_id, 'StoreCategoryID'
-      numeric_node :store_category2_id, 'StoreCategory2ID'
+      numeric_node :store_category_id, 'StoreCategoryID', :optional => true
+      numeric_node :store_category2_id, 'StoreCategory2ID', :optional => true
+      text_node :store_category_name, 'StoreCategoryName', :optional => true
+      text_node :store_category_name2, 'StoreCategory2Name', :optional => true
       text_node :store_url, 'StoreURL', :optional => true
       text_node :store_name, 'StoreName', :optional => true
     end
