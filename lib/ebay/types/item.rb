@@ -5,6 +5,7 @@ require 'ebay/types/payment_details'
 require 'ebay/types/bidding_details'
 require 'ebay/types/charity'
 require 'ebay/types/cross_promotions'
+require 'ebay/types/discount_price_info'
 require 'ebay/types/distance'
 require 'ebay/types/listing_details'
 require 'ebay/types/listing_designer'
@@ -48,6 +49,7 @@ module Ebay # :nodoc:
     #  money_node :buy_it_now_price, 'BuyItNowPrice', :optional => true
     #  boolean_node :category_mapping_allowed, 'CategoryMappingAllowed', 'true', 'false', :optional => true
     #  object_node :charity, 'Charity', :class => Charity, :optional => true
+    #  object_node :discount_price_info, 'DiscountPriceInfo', :class => DiscountPriceInfo, :optional => true
     #  text_node :country, 'Country', :optional => true
     #  object_node :cross_promotion, 'CrossPromotion', :class => CrossPromotions, :optional => true
     #  text_node :currency, 'Currency', :optional => true
@@ -173,6 +175,7 @@ module Ebay # :nodoc:
       money_node :buy_it_now_price, 'BuyItNowPrice', :optional => true
       boolean_node :category_mapping_allowed, 'CategoryMappingAllowed', 'true', 'false', :optional => true
       object_node :charity, 'Charity', :class => Charity, :optional => true
+      object_node :discount_price_info, 'DiscountPriceInfo', :class => DiscountPriceInfo, :optional => true
       text_node :country, 'Country', :optional => true
       object_node :cross_promotion, 'CrossPromotion', :class => CrossPromotions, :optional => true
       text_node :currency, 'Currency', :optional => true
@@ -280,7 +283,7 @@ module Ebay # :nodoc:
       text_node :condition_display_name, 'ConditionDisplayName', :optional => true
       text_node :tax_category, 'TaxCategory', :optional => true
       text_node :quantity_available_hint, 'QuantityAvailableHint', :optional => true
-      numeric_node :quantity_threshold, 'QuantityThreshold', :optional => true
+      numeric_node :quantity_threshold, 'QuantityThreshold', :optional => true 
     end
   end
 end
